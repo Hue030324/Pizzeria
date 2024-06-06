@@ -94,7 +94,84 @@ fun HomeScreen(navController: NavHostController){
             }
         },
         topBar = {
-            HeaderLocation()
+            //location
+    var location by remember { mutableStateOf("") }
+    getLocation(LocalContext.current) { specificLocation ->
+        // Cập nhật biến location với chuỗi địa chỉ cụ thể
+        location = "$specificLocation"
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Color.White)
+                .height(70.dp)
+                .padding(horizontal = 15.dp, vertical = 15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CenterAlignedTopAppBar(
+                title = {
+                    Box(
+                    modifier = Modifier
+                        .height(50.dp)
+                        .width(240.dp)
+                        .background(Color.White)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.location),
+                            contentDescription = "location icon",
+                            modifier = Modifier
+                                .size(15.dp)
+                                .align(Alignment.CenterStart),
+                            tint = Color.Unspecified
+                        )
+
+                        Text(
+                            text = location,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .widthIn(max = 210.dp)
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrow_down),
+                            contentDescription = "location icon",
+                            modifier = Modifier
+                                .size(15.dp)
+                                .align(Alignment.CenterEnd),
+                            tint = Color.Unspecified
+                        )
+                    }
+                },
+                navigationIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.list),
+                        contentDescription = "List",
+                        modifier = Modifier.height(40.dp),
+                        tint = Color.Unspecified
+                    )
+                },
+                actions = {
+                    Image(
+                        painter = painterResource(id = R.drawable.avar),
+                        contentDescription = "avatar",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(42.dp)
+                            .clip(RoundedCornerShape(15.dp))
+                    )
+                }
+            )
+        }
+    }
         },
         bottomBar = {
             val selectedItem = remember { mutableStateOf("Home") }
@@ -292,91 +369,6 @@ fun ListCategory(){
                     }
                 }
             }
-        }
-    }
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HeaderLocation(){
-
-    //location
-    var location by remember { mutableStateOf("") }
-    getLocation(LocalContext.current) { specificLocation ->
-        // Cập nhật biến location với chuỗi địa chỉ cụ thể
-        location = "$specificLocation"
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(color = Color.White),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = Color.White)
-                .height(70.dp)
-                .padding(horizontal = 15.dp, vertical = 15.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            CenterAlignedTopAppBar(
-                title = {
-                    Box(
-                    modifier = Modifier
-                        .height(50.dp)
-                        .width(240.dp)
-                        .background(Color.White)
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.location),
-                            contentDescription = "location icon",
-                            modifier = Modifier
-                                .size(15.dp)
-                                .align(Alignment.CenterStart),
-                            tint = Color.Unspecified
-                        )
-
-                        Text(
-                            text = location,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .widthIn(max = 210.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrow_down),
-                            contentDescription = "location icon",
-                            modifier = Modifier
-                                .size(15.dp)
-                                .align(Alignment.CenterEnd),
-                            tint = Color.Unspecified
-                        )
-                    }
-                },
-                navigationIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.list),
-                        contentDescription = "List",
-                        modifier = Modifier.height(40.dp),
-                        tint = Color.Unspecified
-                    )
-                },
-                actions = {
-                    Image(
-                        painter = painterResource(id = R.drawable.avar),
-                        contentDescription = "avatar",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(42.dp)
-                            .clip(RoundedCornerShape(15.dp))
-                    )
-                }
-            )
         }
     }
 }
