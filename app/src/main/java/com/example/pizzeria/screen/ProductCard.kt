@@ -75,7 +75,7 @@ fun ProductCard(){
         modifier = Modifier
             .width(165.dp)
 //                .height(210.dp)
-            .padding(vertical = 8.dp, horizontal = 8.dp)
+            .padding(vertical = 2.dp, horizontal = 2.dp)
             .background(
                 color = yellow1,
                 shape = RoundedCornerShape(17.dp)

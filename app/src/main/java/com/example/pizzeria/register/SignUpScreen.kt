@@ -23,6 +23,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Phone
+import androidx.compose.material.icons.rounded.Place
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -47,63 +53,47 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.pizzeria.R
-import com.example.pizzeria.login.LoginViewModel
+import com.example.pizzeria.nav.Screen
+import com.example.pizzeria.ui.theme.PizzeriaTheme
 import com.example.pizzeria.ui.theme.bg
 import com.example.pizzeria.ui.theme.red
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
-    loginViewModel: LoginViewModel? = null,
-    onNavToHomePage:() -> Unit,
-    onNavToLoginPage:() -> Unit,
+    navController: NavHostController
 ){
-    val loginUIState = loginViewModel?.loginUIState
-    val isError = loginUIState?.signUpError != null
-    val context = LocalContext.current
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = bg),
-//        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(fraction = 0.40f)
+        Box(modifier = Modifier.fillMaxSize()
         ){
             Image(
-                painter = painterResource(id = R.drawable.log),
+                painter = painterResource(id = R.drawable.bg_resgister),
                 contentDescription = "",
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds)
         }
-        Spacer(modifier = Modifier.size(30.dp))
+//        Spacer(modifier = Modifier.size(30.dp))
         Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxSize()
+            .padding(horizontal = 25.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Row {
-                Text(text = "Welcome To ", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(text = " PIZZERIA!", fontSize = 21.sp, fontWeight = FontWeight.Bold, color = red,)
+                Text(text = "Welcome To ", fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                Text(text = " PIZZERIA!", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = red,)
             }
             Spacer(modifier = Modifier.size(30.dp))
-            if (isError){
-                Text(
-                    text = loginUIState?.signUpError ?: "unknown",
-                    color = red
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-            }
 
             OutlinedTextField(
-                value = loginUIState?.userNameSignUp ?: "",
-                onValueChange = { loginViewModel?.onUserNameChangeSignUp(it) },
+                value = "",
+                onValueChange = {  },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp),
@@ -111,7 +101,7 @@ fun SignUpScreen(
                 shape = RoundedCornerShape(12.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Email,
+                        imageVector = Icons.Rounded.Person,
                         contentDescription = "",
                         tint = Color(0xC3B91C00)
                     )
@@ -119,17 +109,16 @@ fun SignUpScreen(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.White,
+                    containerColor = Color.Transparent,
                     focusedBorderColor = red,
                     unfocusedBorderColor = red
                 ),
-                label = { Text(text = "Email", color = Color(0xC3B91C00))},
-                isError = isError
+                label = { Text(text = "Username", color = Color(0xC3B91C00))},
             )
             Spacer(modifier = Modifier.size(9.dp))
             OutlinedTextField(
-                value = loginUIState?.passwordSignUp ?: "",
-                onValueChange = { loginViewModel?.onPasswordChangeSignUp(it) },
+                value = "",
+                onValueChange = {  },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp),
@@ -137,25 +126,99 @@ fun SignUpScreen(
                 shape = RoundedCornerShape(12.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Lock,
+                        imageVector = Icons.Rounded.Email,
+                        contentDescription = "",
+                        tint = Color(0xC3B91C00)
+                    )
+                },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                singleLine = true,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = Color.Transparent,
+                    focusedBorderColor = red,
+                    unfocusedBorderColor = red
+                ),
+                label = { Text(text = "Email", color = Color(0xC3B91C00))},
+            )
+            Spacer(modifier = Modifier.size(9.dp))
+            OutlinedTextField(
+                value = "",
+                onValueChange = {  },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
+//                    .focusRequester(),
+                shape = RoundedCornerShape(12.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Phone,
+                        contentDescription = "",
+                        tint = Color(0xC3B91C00)
+                    )
+                },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                singleLine = true,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = Color.Transparent,
+                    focusedBorderColor = red,
+                    unfocusedBorderColor = red
+                ),
+                label = { Text(text = "Phone number", color = Color(0xC3B91C00))},
+            )
+            Spacer(modifier = Modifier.size(9.dp))
+            OutlinedTextField(
+                value = "",
+                onValueChange = {  },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
+//                    .focusRequester(),
+                shape = RoundedCornerShape(12.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Place,
+                        contentDescription = "",
+                        tint = Color(0xC3B91C00)
+                    )
+                },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                singleLine = true,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = Color.Transparent,
+                    focusedBorderColor = red,
+                    unfocusedBorderColor = red
+                ),
+                label = { Text(text = "Address", color = Color(0xC3B91C00))},
+            )
+            Spacer(modifier = Modifier.size(9.dp))
+            OutlinedTextField(
+                value = "",
+                onValueChange = {  },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
+//                    .focusRequester(),
+                shape = RoundedCornerShape(12.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Lock,
                         contentDescription = "",
                         tint = Color(0xC3B91C00))
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.White,
+                    containerColor = Color.Transparent,
                     focusedBorderColor = red,
                     unfocusedBorderColor = red
                 ),
                 visualTransformation = PasswordVisualTransformation(),
                 label = { Text(text = "Password", color = Color(0xC3B91C00))},
-                isError = isError
             )
             Spacer(modifier = Modifier.size(9.dp))
             OutlinedTextField(
-                value = loginUIState?.confirmPasswordSignUp ?: "",
-                onValueChange = { loginViewModel?.onConfirmPasswordChange(it) },
+                value = "",
+                onValueChange = {  },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp),
@@ -163,24 +226,24 @@ fun SignUpScreen(
                 shape = RoundedCornerShape(12.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Lock,
+                        imageVector = Icons.Rounded.Lock,
                         contentDescription = "",
                         tint = Color(0xC3B91C00))
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.White,
+                    containerColor = Color.Transparent,
                     focusedBorderColor = red,
                     unfocusedBorderColor = red
                 ),
                 visualTransformation = PasswordVisualTransformation(),
                 label = { Text(text = "Confirm Password", color = Color(0xC3B91C00))},
-                isError = isError
             )
             Spacer(modifier = Modifier.size(20.dp))
             Button(onClick = {
-                loginViewModel?.createUser(context)
+                navController.navigate(Screen.Home.rout)
+
             },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -200,11 +263,12 @@ fun SignUpScreen(
             Spacer(modifier = Modifier.size(8.dp))
             Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center,verticalAlignment = Alignment.CenterVertically) {
                 Text(text = "Already have an account?",textAlign = TextAlign.Center)
+
                 TextButton(onClick = {
-                                     onNavToLoginPage.invoke()
+                    navController.navigate(Screen.SignInScreen.rout)
                 },
                 ) {
-                    Text(text = "Sign In now!",fontSize = 15.sp, fontWeight = FontWeight.Bold, color = red)
+                    Text(text = "Sign In now!",fontSize = 16.sp, fontWeight = FontWeight.Bold, color = red)
                 }
             }
 //            Spacer(modifier = Modifier.size(6.dp))
@@ -251,26 +315,12 @@ fun SignUpScreen(
             }
 
         }
-
-        if (loginUIState?.isLoading == true){
-            CircularProgressIndicator()
-        }
-
-        LaunchedEffect(key1 = loginViewModel?.hasUser){
-            if (loginViewModel?.hasUser == true){
-                onNavToHomePage.invoke()
-            }
-        }
-
-    }
 }
 
-//@Preview(showSystemUi = true)
-//@Composable
-//fun signUpPreview(){
-//    PizzeriaTheme {
-//        com.example.pizzeria.login.SignUpScreen(onNavToHomePage = { /*TODO*/ }) {
-//
-//        }
-//    }
-//}
+@Preview()
+@Composable
+fun signUpPreview(){
+    PizzeriaTheme {
+        SignUpScreen(rememberNavController())
+    }
+}

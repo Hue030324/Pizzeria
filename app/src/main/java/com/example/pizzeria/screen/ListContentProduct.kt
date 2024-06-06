@@ -10,25 +10,31 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.pizzeria.nav.Screen
+import com.example.pizzeria.ui.theme.red
 
 @Composable
-fun ListContentProduct(){
+fun ListContentProduct(navController: NavHostController){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 10.dp),
+            .padding(horizontal = 20.dp),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(start = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "Popular Items",
@@ -37,18 +43,20 @@ fun ListContentProduct(){
                 letterSpacing = 1.sp,
                 color = Black
             )
-            Text(
-                text = "All",
-                fontWeight = FontWeight.W300,
-                fontSize = 14.sp,
-                color = Black
-            )
+            TextButton(onClick = {
+
+            },
+            ) {
+                Text(text = "All",
+                    fontWeight = FontWeight.W400,
+                    fontSize = 14.sp,
+                    color = Black)
+            }
         }
-        Spacer(modifier = Modifier.height(5.dp))
 
         LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            contentPadding = PaddingValues(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            contentPadding = PaddingValues(5.dp)
         ){
             items(8){
                 ProductCard()

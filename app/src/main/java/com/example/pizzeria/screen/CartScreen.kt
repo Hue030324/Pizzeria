@@ -1,13 +1,9 @@
 package com.example.pizzeria.screen
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.drawable.AdaptiveIconDrawable
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,21 +28,16 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ButtonElevation
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,12 +45,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.DarkGray
-import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -69,9 +57,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.pizzeria.R
-import com.example.pizzeria.ui.theme.AppBarCollapsedHeight
-import com.example.pizzeria.ui.theme.AppBarExpendedHeight
+import com.example.pizzeria.nav.Screen
 import com.example.pizzeria.ui.theme.Shapes
 import com.example.pizzeria.ui.theme.black
 import com.example.pizzeria.ui.theme.blackcart
@@ -79,28 +68,25 @@ import com.example.pizzeria.ui.theme.delete
 import com.example.pizzeria.ui.theme.grayFont
 import com.example.pizzeria.ui.theme.lightGray
 import com.example.pizzeria.ui.theme.menu
-import com.example.pizzeria.ui.theme.menu1
 import com.example.pizzeria.ui.theme.red
 import com.example.pizzeria.ui.theme.yellow1
 import com.example.pizzeria.ui.theme.yellow2
-import com.example.pizzeria.ui.theme.yellow3
-import com.google.accompanist.insets.statusBarsPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CartScreen(){
-    val scrollState = rememberLazyListState()
+fun CartScreen(navController: NavHostController){
     Scaffold(
         topBar = {
             CartHeader()
         },
         bottomBar = {
-            CartFooter()
+            CartFooter(rememberNavController())
         },
-    ) {paddingValues ->
-        CartContent(scrollState)
-    }
+        content = {
+            CartContent()
+        }
+    )
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -161,7 +147,8 @@ fun CartHeader() {
 }
 
 @Composable
-fun CartContent(scrollState: LazyListState) {
+fun CartContent() {
+    val scrollState = rememberLazyListState()
     LazyColumn(contentPadding = PaddingValues(top = 100.dp, bottom = 110.dp, start = 16.dp, end = 16.dp), state = scrollState){
         item {
             CartItemCard()
@@ -398,7 +385,7 @@ fun SubTotal() {
 }
 
 @Composable
-fun CartFooter(){
+fun CartFooter(navController: NavHostController){
     BottomAppBar(
         contentPadding = PaddingValues(),
         backgroundColor = menu,
@@ -438,7 +425,9 @@ fun CartFooter(){
             }
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+
+                          },
                 shape = RoundedCornerShape(8.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = red,
@@ -464,5 +453,5 @@ fun CartFooter(){
 @Preview
 @Composable
 fun previewCartScreen(){
-    CartScreen()
+    CartScreen(rememberNavController())
 }

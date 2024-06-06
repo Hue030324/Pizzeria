@@ -59,7 +59,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.pizzeria.R
+import com.example.pizzeria.nav.Screen
 import com.example.pizzeria.ui.theme.PizzeriaTheme
 import com.example.pizzeria.ui.theme.bg
 import com.example.pizzeria.ui.theme.red
@@ -67,53 +70,33 @@ import com.example.pizzeria.ui.theme.red
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
-    loginViewModel: LoginViewModel? = null,
-    onNavToHomePage:() -> Unit,
-    onNavToSignUpPage:() -> Unit,
+    navController: NavHostController
     ){
-    val loginUIState = loginViewModel?.loginUIState
-    val isError = loginUIState?.loginError != null
-    val context = LocalContext.current
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = bg),
-//        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(fraction = 0.40f)
+        Box(modifier = Modifier.fillMaxSize()
         ){
             Image(
-                painter = painterResource(id = R.drawable.log),
+                painter = painterResource(id = R.drawable.bg_login),
                 contentDescription = "",
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds)
         }
         Spacer(modifier = Modifier.size(30.dp))
         Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxSize()
+            .padding(horizontal = 30.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Row {
-                Text(text = "Welcome Back ", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(text = " PIZZERIA!", fontSize = 21.sp, fontWeight = FontWeight.Bold, color = red,)
+                Text(text = "Welcome Back ", fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                Text(text = " PIZZERIA!", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = red,)
             }
-            Spacer(modifier = Modifier.size(30.dp))
-            if (isError){
-                Text(
-                    text = loginUIState?.loginError ?: "unknown",
-                    color = red
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-            }
+            Spacer(modifier = Modifier.size(35.dp))
 
             OutlinedTextField(
-                value = loginUIState?.userName ?: "",
-                onValueChange = { loginViewModel?.onUserNameChange(it) },
+                value = "",
+                onValueChange = {  },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp),
@@ -134,12 +117,11 @@ fun SignInScreen(
                     unfocusedBorderColor = red
                 ),
                 label = { Text(text = "Email", color = Color(0xC3B91C00))},
-                isError = isError
             )
             Spacer(modifier = Modifier.size(9.dp))
             OutlinedTextField(
-                value = loginUIState?.password ?: "",
-                onValueChange = { loginViewModel?.onPasswordChange(it) },
+                value = "",
+                onValueChange = {  },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp),
@@ -160,11 +142,11 @@ fun SignInScreen(
                 ),
                 visualTransformation = PasswordVisualTransformation(),
                 label = { Text(text = "Password", color = Color(0xC3B91C00))},
-                isError = isError
             )
-            Spacer(modifier = Modifier.size(20.dp))
+            Spacer(modifier = Modifier.size(30.dp))
+
             Button(onClick = {
-                             loginViewModel?.loginUser(context)
+                             navController.navigate(Screen.Cart.rout)
                              },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -189,7 +171,7 @@ fun SignInScreen(
             ) {
                 Text(text = "Is it first for you? ", textAlign = TextAlign.Center)
                 TextButton(onClick = {
-                                     onNavToSignUpPage.invoke()
+                    navController.navigate(Screen.SignUpScreen.rout)
                 },
                 ) {
                     Text(text = "Sign Up now!",fontSize = 15.sp, fontWeight = FontWeight.Bold, color = red)
@@ -199,7 +181,7 @@ fun SignInScreen(
             Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center) {
                 Text(text = "OR Sign In with")
             }
-            Spacer(modifier = Modifier.size(10.dp))
+            Spacer(modifier = Modifier.size(20.dp))
             Row(modifier = Modifier
                 .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center) {
@@ -239,26 +221,12 @@ fun SignInScreen(
             }
 
         }
-
-        if (loginUIState?.isLoading == true){
-            CircularProgressIndicator()
-        }
-
-        LaunchedEffect(key1 = loginViewModel?.hasUser){
-            if (loginViewModel?.hasUser == true){
-                onNavToHomePage.invoke()
-            }
-        }
-
-    }
 }
 
-@Preview(showSystemUi = true)
+@Preview()
 @Composable
 fun signInPreview(){
     PizzeriaTheme {
-        SignInScreen(onNavToHomePage = { /*TODO*/ }) {
-            
-        }
+        SignInScreen(rememberNavController())
     }
 }

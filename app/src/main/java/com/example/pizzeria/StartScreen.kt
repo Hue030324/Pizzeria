@@ -27,11 +27,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.pizzeria.nav.Screen
 import com.example.pizzeria.ui.theme.red
 import com.example.pizzeria.ui.theme.yellow1
 
 @Composable
-fun StartScreen(onNavToLoginPage: () -> Unit, function: () -> Unit){
+fun StartScreen(navController: NavHostController){
     val offset = Offset(5.0f, 6.0f)
     Column(
         modifier = Modifier
@@ -82,7 +84,7 @@ fun StartScreen(onNavToLoginPage: () -> Unit, function: () -> Unit){
 
 //        Spacer(modifier = Modifier.size(20.dp))
         Button(onClick = {
-            onNavToLoginPage.invoke()
+            navController.navigate(Screen.Home.rout)
         },
 //            modifier = Modifier.height(45.dp),
             shape = RoundedCornerShape(40.dp),

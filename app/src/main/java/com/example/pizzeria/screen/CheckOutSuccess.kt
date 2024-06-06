@@ -1,5 +1,6 @@
 package com.example.pizzeria.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,11 +15,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.FabPosition
 import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,15 +38,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.pizzeria.nav.BottomNav
+import com.example.pizzeria.nav.Screen
+import com.example.pizzeria.nav.myFAB
 import com.example.pizzeria.ui.theme.grayFont
 import com.example.pizzeria.ui.theme.green
 import com.example.pizzeria.ui.theme.lightGray
 import com.example.pizzeria.ui.theme.menu
 import com.example.pizzeria.ui.theme.red
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CheckOutSuccess(){
+fun CheckOutSuccess(navController: NavHostController){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -94,6 +104,8 @@ fun CheckOutSuccess(){
                 Button(
                     onClick = {
                               // chuyen den trang chi tiet don hang
+                              navController.navigate(Screen.Profile.rout)
+
                               },
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(
@@ -118,5 +130,5 @@ fun CheckOutSuccess(){
 @Preview
 @Composable
 fun previewCheckOutSuccess(){
-    CheckOutSuccess()
+    CheckOutSuccess(rememberNavController())
 }

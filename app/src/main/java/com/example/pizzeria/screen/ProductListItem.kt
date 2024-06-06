@@ -34,7 +34,6 @@ fun ProductListItem(){
     Scaffold(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection),
-//            .padding(horizontal = 20.dp, vertical = 15.dp),
         topBar = {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
