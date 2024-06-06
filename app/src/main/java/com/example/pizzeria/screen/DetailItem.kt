@@ -76,31 +76,22 @@ fun DetailItem(){
     val scrollState = rememberLazyListState()
 
     Scaffold(
+        floatingActionButtonPosition = FabPosition.Center,
+        isFloatingActionButtonDocked = true,
         floatingActionButton = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp, bottom = 15.dp),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.Center
-            ) {
+
                 FloatingActionButton(
                     onClick = { /*TODO*/ },
                     shape = CircleShape,
                     backgroundColor = redlight,
                     contentColor = White,
                 ) {
-//                    Image(
-//                        painter = painterResource(id = R.drawable.shopping_cart),
-//                        contentDescription = "",
-//                        modifier = Modifier.size(25.dp)
-//                    )
+
                     Icon(
                         imageVector = Icons.Filled.Add,
                         contentDescription = "",
                         modifier = Modifier.size(32.dp))
                 }
-            }
         },
 
         topBar = {

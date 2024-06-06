@@ -77,87 +77,137 @@ import com.example.pizzeria.ui.theme.yellow2
 @Composable
 fun CartScreen(navController: NavHostController){
     Scaffold(
-        topBar = {
-            CartHeader()
-        },
-        bottomBar = {
-            CartFooter(rememberNavController())
-        },
-        content = {
-            CartContent()
-        }
-    )
-}
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CartHeader() {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = Color.White)
-        ) {
-            Row(
+        topBar = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(70.dp)
-                    .padding(horizontal = 15.dp, vertical = 15.dp)
                     .background(color = Color.White)
             ) {
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = Color.White,
-                        titleContentColor = Color.Black,
-                        navigationIconContentColor = Color.Black,
-                        actionIconContentColor = Color.Black
-                    ),
-                    title = {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(70.dp)
+                        .padding(horizontal = 15.dp, vertical = 15.dp)
+                        .background(color = Color.White)
+                ) {
+                    CenterAlignedTopAppBar(
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                            containerColor = Color.White,
+                            titleContentColor = Color.Black,
+                            navigationIconContentColor = Color.Black,
+                            actionIconContentColor = Color.Black
+                        ),
+                        title = {
+                            Text(
+                                text = "My Cart",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                fontWeight = FontWeight.Bold
+                            )
+                        },
+                        navigationIcon = {
+                            Button(
+                                onClick = { },
+                                contentPadding = PaddingValues(),
+                                shape = Shapes.small,
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Color.White,
+                                    contentColor = Color.Black
+                                ),
+                                //                    elevation = 5.dp,
+                                modifier = Modifier
+                                    .width(38.dp)
+                                    .height(38.dp)
+                            ) {
+                                androidx.compose.material.Icon(
+                                    painterResource(id = R.drawable.ic_arrow_back),
+                                    null
+                                )
+                            }
+                        },
+                    )
+                }
+            }
+        },
+        bottomBar = {
+            BottomAppBar(
+                contentPadding = PaddingValues(),
+                backgroundColor = menu,
+                modifier = Modifier
+                    .height(100.dp)
+                    .clip(shape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp))
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp)
+                ) {
+                    Row (
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
                         Text(
-                            text = "My Cart",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                            text = "Total:",
+                            fontSize = 17.sp,
+                            color = grayFont,
+                            fontWeight = FontWeight.Normal
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "$",
+                            fontSize = 20.sp,
+                            color = Black,
                             fontWeight = FontWeight.Bold
                         )
-                    },
-                    navigationIcon = {
-                        Button(
-                            onClick = { },
-                            contentPadding = PaddingValues(),
-                            shape = Shapes.small,
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White,
-                                contentColor = Color.Black
-                            ),
-                            //                    elevation = 5.dp,
-                            modifier = Modifier
-                                .width(38.dp)
-                                .height(38.dp)
-                        ) {
-                            androidx.compose.material.Icon(
-                                painterResource(id = R.drawable.ic_arrow_back),
-                                null
-                            )
-                        }
-                    },
-                )
+                        Text(
+                            text = "43.00",
+                            fontSize = 25.sp,
+                            color = Black,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    Button(
+                        onClick = {
+
+                        },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = red,
+                        ),
+                        modifier = Modifier.height(50.dp),
+                    ) {
+                        Text(
+                            text = "Checkout ",
+                            fontSize = 19.sp,
+                            color = White,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_arrowrightx2),
+                            contentDescription = "",
+                            modifier = Modifier.size(25.dp)
+                        )
+                    }
+                }
+            }
+        },
+        content = {
+            val scrollState = rememberLazyListState()
+            LazyColumn(contentPadding = PaddingValues(top = 100.dp, bottom = 110.dp, start = 16.dp, end = 16.dp), state = scrollState){
+                item {
+                    CartItemCard()
+                    CartItemCard()
+                    CartItemCard()
+                    DiscountCode()
+                    SubTotal()
+                }
             }
         }
-}
-
-@Composable
-fun CartContent() {
-    val scrollState = rememberLazyListState()
-    LazyColumn(contentPadding = PaddingValues(top = 100.dp, bottom = 110.dp, start = 16.dp, end = 16.dp), state = scrollState){
-        item {
-            CartItemCard()
-            CartItemCard()
-            CartItemCard()
-            DiscountCode()
-            SubTotal()
-        }
-    }
+    )
 }
 
 @SuppressLint("SuspiciousIndentation")
@@ -384,71 +434,6 @@ fun SubTotal() {
     }
 }
 
-@Composable
-fun CartFooter(navController: NavHostController){
-    BottomAppBar(
-        contentPadding = PaddingValues(),
-        backgroundColor = menu,
-        modifier = Modifier
-            .height(100.dp)
-            .clip(shape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp))
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp)
-        ) {
-            Row (
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = "Total:",
-                    fontSize = 17.sp,
-                    color = grayFont,
-                    fontWeight = FontWeight.Normal
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(
-                    text = "$",
-                    fontSize = 20.sp,
-                    color = Black,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "43.00",
-                    fontSize = 25.sp,
-                    color = Black,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            Button(
-                onClick = {
-
-                          },
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = red,
-                ),
-                modifier = Modifier.height(50.dp),
-            ) {
-                Text(
-                    text = "Checkout ",
-                    fontSize = 19.sp,
-                    color = White,
-                    fontWeight = FontWeight.Bold
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrowrightx2),
-                    contentDescription = "",
-                    modifier = Modifier.size(25.dp)
-                )
-            }
-        }
-    }
-}
 
 @Preview
 @Composable

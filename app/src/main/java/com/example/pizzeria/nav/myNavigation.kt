@@ -79,11 +79,11 @@ fun MyNavigation(){
 }
 
 @Composable
-fun myFAB(){
+fun myFAB(navController: NavHostController){
 
     FloatingActionButton(
         onClick = {
-
+                  navController.navigate(Screen.Cart.rout)
                   },
         backgroundColor = yellow1,
         contentColor = Color.White,
@@ -187,7 +187,7 @@ fun BottomNavigation() {
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         floatingActionButton = {
-            myFAB()
+            myFAB(rememberNavController())
         },
         bottomBar = {
             BottomNav(rememberNavController())

@@ -50,81 +50,84 @@ import com.example.pizzeria.ui.theme.menu
 import com.example.pizzeria.ui.theme.red
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CheckOutSuccess(navController: NavHostController){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = menu)
-            .padding(horizontal = 25.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Surface(
-            shape = RoundedCornerShape(25.dp),
-            color = Color.White,
-            modifier = Modifier
-                .fillMaxWidth(),
-            shadowElevation = 10.dp,
-            onClick = {
-            }
-        ){
+    Scaffold (
+        content = {
             Column(
-                modifier = Modifier.padding(25.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = menu)
+                    .padding(horizontal = 25.dp),
+                verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(
-                    imageVector = Icons.Rounded.CheckCircle,
-                    contentDescription = "",
-                    tint = green,
-                    modifier = Modifier.size(110.dp)
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    text = "Success!",
-                    fontSize = 35.sp,
-                    color = green,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(15.dp))
-
-                Text(
-                    text = "Your menu items for today are estimated " +
-                            "to delivery within 25-45 minutes.",
-                    fontSize = 16.sp,
-                    color = grayFont,
-                    style = TextStyle(
-                        textAlign = TextAlign.Center
-                    ),
-                    modifier = Modifier.width(200.dp),
-                    lineHeight = 21.sp
-                )
-                Spacer(modifier = Modifier.height(40.dp))
-                Button(
-                    onClick = {
-                              // chuyen den trang chi tiet don hang
-                              navController.navigate(Screen.Profile.rout)
-
-                              },
-                    shape = CircleShape,
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = green,
-                    ),
+                Surface(
+                    shape = RoundedCornerShape(25.dp),
+                    color = Color.White,
                     modifier = Modifier
-                        .height(70.dp)
-                        .width(230.dp),
-                ) {
-                    Text(
-                        text = "DONE",
-                        fontSize = 20.sp,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    )
+                        .fillMaxWidth(),
+                    shadowElevation = 10.dp,
+                    onClick = {
+                    }
+                ){
+                    Column(
+                        modifier = Modifier.padding(25.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.CheckCircle,
+                            contentDescription = "",
+                            tint = green,
+                            modifier = Modifier.size(110.dp)
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Text(
+                            text = "Success!",
+                            fontSize = 35.sp,
+                            color = green,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "Your menu items for today are estimated " +
+                                    "to delivery within 25-45 minutes.",
+                            fontSize = 16.sp,
+                            color = grayFont,
+                            style = TextStyle(
+                                textAlign = TextAlign.Center
+                            ),
+                            modifier = Modifier.width(200.dp),
+                            lineHeight = 21.sp
+                        )
+                        Spacer(modifier = Modifier.height(40.dp))
+                        Button(
+                            onClick = {
+                                // chuyen den trang chi tiet don hang
+                            },
+                            shape = CircleShape,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = green,
+                            ),
+                            modifier = Modifier
+                                .height(70.dp)
+                                .width(230.dp),
+                        ) {
+                            Text(
+                                text = "DONE",
+                                fontSize = 20.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
                 }
             }
         }
-    }
+    )
 }
 
 @Preview

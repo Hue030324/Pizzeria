@@ -18,7 +18,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,8 +33,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,6 +63,7 @@ import com.example.pizzeria.R
 import com.example.pizzeria.nav.BottomNav
 import com.example.pizzeria.nav.Screen
 import com.example.pizzeria.nav.myFAB
+import com.example.pizzeria.ui.theme.green
 import com.example.pizzeria.ui.theme.yellow1
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.android.gms.location.LocationCallback
@@ -59,43 +73,164 @@ import com.google.android.gms.location.LocationServices
 import java.util.Locale
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter, UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen(navController: NavHostController){
     Scaffold(
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         floatingActionButton = {
-            myFAB()
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(Screen.Cart.rout)
+                },
+                backgroundColor = yellow1,
+                contentColor = Color.White,
+                elevation = FloatingActionButtonDefaults.elevation(5.dp, 6.dp)
+            ) {
+                androidx.compose.material.Icon(
+                    imageVector = Icons.Rounded.ShoppingCart,
+                    contentDescription = "")
+            }
         },
         topBar = {
             HeaderLocation()
         },
         bottomBar = {
-            BottomNav(rememberNavController())
+            val selectedItem = remember { mutableStateOf("Home") }
+
+            BottomAppBar(
+                cutoutShape = CircleShape,
+                backgroundColor = yellow1,
+                contentColor = Color.White,
+                elevation = 5.dp,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(topEnd = 13.dp, topStart = 13.dp)),
+                content = {
+                    BottomNavigation(
+                        backgroundColor = yellow1,
+                    ){
+                        BottomNavigationItem(
+                            selected =  selectedItem.value == "Home",
+                            onClick = {
+                                selectedItem.value = "Home"
+//                        navController.navigate(Screen.Home.rout)
+                            },
+                            icon = {
+                                androidx.compose.material.Icon(
+                                    imageVector = Icons.Rounded.Home,
+                                    contentDescription = "Home")
+                            },
+                            label = { androidx.compose.material.Text(text = "Home") },
+                            alwaysShowLabel = false
+                        )
+                        BottomNavigationItem(
+                            selected =  selectedItem.value == "Wishlist",
+                            onClick = {
+                                selectedItem.value = "Wishlist"
+                                navController.navigate(Screen.Wishlist.rout)
+                            },
+                            icon = {
+                                androidx.compose.material.Icon(
+                                    imageVector = Icons.Rounded.Favorite,
+                                    contentDescription = "Wishlist")
+                            },
+                            label = { androidx.compose.material.Text(text = "Wishlist") },
+                            alwaysShowLabel = false
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        BottomNavigationItem(
+                            selected =  selectedItem.value == "Ordered",
+                            onClick = {
+                                selectedItem.value = "Ordered"
+//                        navController.navigate(Screen.Ordered.rout)
+                            },
+                            icon = {
+                                androidx.compose.material.Icon(
+                                    painterResource(id = R.drawable.pending),
+                                    contentDescription = "Ordered")
+                            },
+                            label = { androidx.compose.material.Text(text = "Order") },
+                            alwaysShowLabel = false
+                        )
+                        BottomNavigationItem(
+                            selected =  selectedItem.value == "Profile",
+                            onClick = {
+                                selectedItem.value = "Profile"
+//                        navController.navigate(Screen.Profile.rout)
+                            },
+                            icon = {
+                                androidx.compose.material.Icon(
+                                    imageVector = Icons.Rounded.Person,
+                                    contentDescription = "Profile")
+                            },
+                            label = { androidx.compose.material.Text(text = "Profile") },
+                            alwaysShowLabel = false
+                        )
+                    }
+
+                }
+            )
         },
         content = {
-            HomeContent()
+
+            val scrollState = rememberLazyListState()
+            LazyColumn(contentPadding = PaddingValues(bottom = 110.dp), state = scrollState) {
+                item(){
+
+                    SearchViewBar()
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    ListCategory()
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 10.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Popular Items",
+                                fontWeight = FontWeight.W300,
+                                fontSize = 15.sp,
+                                letterSpacing = 1.sp,
+                                color = Color.Black
+                            )
+                            TextButton(onClick = {
+                                navController.navigate(Screen.Cart.rout)
+                            },
+                            ) {
+                                Text(text = "All",
+                                    fontWeight = FontWeight.W400,
+                                    fontSize = 14.sp,
+                                    color = Color.Black
+                                )
+                            }
+                        }
+
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(5.dp),
+                            contentPadding = PaddingValues(5.dp)
+                        ){
+                            items(8){
+                                ProductCard()
+                            }
+                        }
+                    }
+
+                    SliderBanner()
+                }
+            }
         }
     )
 
-}
-
-@OptIn(ExperimentalPagerApi::class)
-@Composable
-fun HomeContent() {
-    val scrollState = rememberLazyListState()
-    LazyColumn(contentPadding = PaddingValues(bottom = 110.dp), state = scrollState) {
-        item(){
-
-            SearchViewBar()
-            Spacer(modifier = Modifier.height(10.dp))
-            ListCategory()
-            ListContentProduct(rememberNavController())
-            SliderBanner()
-
-        }
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
