@@ -88,58 +88,47 @@ fun CheckOutScreen(navController: NavController){
         modifier = Modifier.fillMaxSize().background(color = bg),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = Color.White)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-                    .padding(horizontal = 15.dp, vertical = 15.dp)
-                    .background(color = Color.White)
-            ) {
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = Color.White,
-                        titleContentColor = Color.Black,
-                        navigationIconContentColor = Color.Black,
-                        actionIconContentColor = Color.Black
-                    ),
-                    title = {
-                        Text(
-                            text = "Check Out",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontWeight = FontWeight.Bold
-                        )
-                    },
-                    navigationIcon = {
-                        Button(
-                            onClick = { },
-                            contentPadding = PaddingValues(),
-                            shape = Shapes.small,
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White,
-                                contentColor = Color.Black
-                            ),
-                            //                    elevation = 5.dp,
-                            modifier = Modifier
-                                .width(38.dp)
-                                .height(38.dp)
-                        ) {
-                            Icon(
-                                painterResource(id = R.drawable.ic_arrow_back),
-                                null
-                            )
-                        }
-                    },
+        CenterAlignedTopAppBar(
+            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = Color.White,
+                titleContentColor = Color.Black,
+                navigationIconContentColor = Color.Black,
+                actionIconContentColor = Color.Black
+            ),
+            title = {
+                androidx.compose.material3.Text(
+                    text = "Check Out",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    fontWeight = FontWeight.Bold
                 )
-            }
-        }
-        LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp), state = scrollState){
+            },
+            navigationIcon = {
+                Column(
+                    modifier = Modifier.padding(start = 15.dp)
+                ) {
+                    Button(
+                        onClick = { },
+                        contentPadding = PaddingValues(),
+                        shape = Shapes.small,
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.White,
+                            contentColor = Color.Black
+                        ),
+                        //                    elevation = 5.dp,
+                        modifier = Modifier
+                            .width(38.dp)
+                            .height(38.dp)
+                    ) {
+                        Icon(
+                            painterResource(id = R.drawable.ic_arrow_back),
+                            null
+                        )
+                    }
+                }
+            },
+        )
+        LazyColumn(contentPadding = PaddingValues(bottom = 20.dp, start = 16.dp, end = 16.dp), state = scrollState){
             item {
                 Column {
                     Text(
