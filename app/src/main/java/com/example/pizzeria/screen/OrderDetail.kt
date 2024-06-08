@@ -94,57 +94,46 @@ fun OrderDetailItemScreen(navController: NavController){
             }
         },
         topBar = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.White)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .padding(horizontal = 15.dp, vertical = 15.dp)
-                        .background(color = Color.White)
-                ) {
-                    CenterAlignedTopAppBar(
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Color.White,
-                            titleContentColor = Color.Black,
-                            navigationIconContentColor = Color.Black,
-                            actionIconContentColor = Color.Black
-                        ),
-                        title = {
-                            Text(
-                                text = "My Order",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                fontWeight = FontWeight.Bold
-                            )
-                        },
-                        navigationIcon = {
-                            Button(
-                                onClick = { },
-                                contentPadding = PaddingValues(),
-                                shape = Shapes.small,
-                                colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = Color.White,
-                                    contentColor = Color.Black
-                                ),
-                                //                    elevation = 5.dp,
-                                modifier = Modifier
-                                    .width(38.dp)
-                                    .height(38.dp)
-                            ) {
-                                Icon(
-                                    painterResource(id = R.drawable.ic_arrow_back),
-                                    null
-                                )
-                            }
-                        },
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.White,
+                    titleContentColor = Color.Black,
+                    navigationIconContentColor = Color.Black,
+                    actionIconContentColor = Color.Black
+                ),
+                title = {
+                    Text(
+                        text = "My Order",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-            }
+                },
+                navigationIcon = {
+                    Column(
+                        modifier = Modifier.padding(start = 15.dp)
+                    ) {
+                        Button(
+                            onClick = { },
+                            contentPadding = PaddingValues(),
+                            shape = Shapes.small,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.White,
+                                contentColor = Color.Black
+                            ),
+                            //                    elevation = 5.dp,
+                            modifier = Modifier
+                                .width(38.dp)
+                                .height(38.dp)
+                        ) {
+                            Icon(
+                                painterResource(id = R.drawable.ic_arrow_back),
+                                null
+                            )
+                        }
+                    }
+                },
+            )
         },
         bottomBar = {
             val selectedItem = remember { mutableStateOf("Ordered") }
@@ -223,158 +212,158 @@ fun OrderDetailItemScreen(navController: NavController){
             )
         },
 
-        content = {
-            LazyColumn(contentPadding = PaddingValues(bottom = 75.dp, start = 16.dp, end = 16.dp), state = scrollState){
-                item {
-                    Column(
+    ){
+        
+        LazyColumn(contentPadding = PaddingValues(bottom = 75.dp, start = 16.dp, end = 16.dp), state = scrollState){
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp, horizontal = 5.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.DateRange,
+                            contentDescription = null,
+                            modifier = Modifier.height(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "Friday, Jun 7, 2024",
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 15.sp,
+                            color = blackcart
+                        )
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color.White,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 10.dp, horizontal = 5.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.DateRange,
-                                contentDescription = null,
-                                modifier = Modifier.height(20.dp)
+                            .background(
+                                color = lightGray,
+                                shape = RoundedCornerShape(12.dp),
                             )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Friday, Jun 7, 2024",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 15.sp,
-                                color = blackcart
-                            )
+                            .padding(bottom = 2.dp),
+                        shadowElevation = 6.dp,
+                        onClick = {
+                            //den trang sua/ them dia chi
                         }
-
-                        Surface(
-                            shape = RoundedCornerShape(12.dp),
-                            color = Color.White,
+                    ) {
+                        Column(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
-                                    color = lightGray,
-                                    shape = RoundedCornerShape(12.dp),
-                                )
-                                .padding(bottom = 2.dp),
-                            shadowElevation = 6.dp,
-                            onClick = {
-                                //den trang sua/ them dia chi
-                            }
+                                .padding(15.dp)
+                                .padding(top = 15.dp),
                         ) {
-                            Column(
+                            Row(
                                 modifier = Modifier
-                                    .padding(15.dp)
-                                    .padding(top = 15.dp),
+                                    .padding(bottom = 15.dp)
                             ) {
-                                Row(
-                                    modifier = Modifier
-                                        .padding(bottom = 15.dp)
-                                ) {
-                                    Text(
-                                        text = "Name contact :",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "Hoang Quynh",
-                                        fontSize = 17.sp,
-                                        color = blackcart,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-                                Row(
-                                    modifier = Modifier
-                                        .padding(bottom = 15.dp)
-                                ) {
-                                    Text(
-                                        text = "Phone number :",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "0986753241",
-                                        fontSize = 17.sp,
-                                        color = blackcart,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-                                Row(
-                                    modifier = Modifier
-                                        .padding(bottom = 15.dp)
-                                ) {
-                                    Text(
-                                        text = "Address :",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "365 Tran Dai Nghia, Hoa Hai, Ngu Hanh Son, Da Nang",
-                                        fontSize = 17.sp,
-                                        color = blackcart,
-                                        fontWeight = FontWeight.Medium,
-                                        lineHeight = 20.sp
-                                    )
-                                }
-                                Row(
-                                    modifier = Modifier
-                                        .padding(bottom = 15.dp)
-                                ) {
-                                    Text(
-                                        text = "Items :",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "Smoked Salmon Pizza x1 \n" +
-                                                "Special Royal Beef Burger x1 \n" +
-                                                "Classic Fries x1 \n" +
-                                                "Sprite x1",
-                                        fontSize = 17.sp,
-                                        color = blackcart,
-                                        fontWeight = FontWeight.Medium,
-                                        lineHeight = 25.sp
-                                    )
-                                }
-                                Row(
-                                    modifier = Modifier
-                                        .padding(bottom = 15.dp)
-                                ) {
-                                    Text(
-                                        text = "Time :",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "10:30 am",
-                                        fontSize = 17.sp,
-                                        color = blackcart,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-                                Row(
-                                    modifier = Modifier
-                                        .padding(bottom = 15.dp)
-                                ) {
-                                    Text(
-                                        text = "Total :",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "$43.00",
-                                        fontSize = 17.sp,
-                                        color = blackcart,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
+                                Text(
+                                    text = "Name contact :",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "Hoang Quynh",
+                                    fontSize = 17.sp,
+                                    color = blackcart,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .padding(bottom = 15.dp)
+                            ) {
+                                Text(
+                                    text = "Phone number :",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "0986753241",
+                                    fontSize = 17.sp,
+                                    color = blackcart,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .padding(bottom = 15.dp)
+                            ) {
+                                Text(
+                                    text = "Address :",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "365 Tran Dai Nghia, Hoa Hai, Ngu Hanh Son, Da Nang",
+                                    fontSize = 17.sp,
+                                    color = blackcart,
+                                    fontWeight = FontWeight.Medium,
+                                    lineHeight = 20.sp
+                                )
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .padding(bottom = 15.dp)
+                            ) {
+                                Text(
+                                    text = "Items :",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "Smoked Salmon Pizza x1 \n" +
+                                            "Special Royal Beef Burger x1 \n" +
+                                            "Classic Fries x1 \n" +
+                                            "Sprite x1",
+                                    fontSize = 17.sp,
+                                    color = blackcart,
+                                    fontWeight = FontWeight.Medium,
+                                    lineHeight = 25.sp
+                                )
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .padding(bottom = 15.dp)
+                            ) {
+                                Text(
+                                    text = "Time :",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "10:30 am",
+                                    fontSize = 17.sp,
+                                    color = blackcart,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .padding(bottom = 15.dp)
+                            ) {
+                                Text(
+                                    text = "Total :",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "$43.00",
+                                    fontSize = 17.sp,
+                                    color = blackcart,
+                                    fontWeight = FontWeight.Medium
+                                )
                             }
                         }
                     }
@@ -382,7 +371,7 @@ fun OrderDetailItemScreen(navController: NavController){
             }
         }
 
-    )
+    }
 }
 
 @Preview
