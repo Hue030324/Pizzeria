@@ -252,119 +252,113 @@ fun WishlistScreen(navController: NavHostController){
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     columns = GridCells.Fixed(2),
                     content = {
-                        items(10) {
-                            CardWishlist()
+                        items(4) {
+                            Surface(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(17.dp),
+                                color = Color.White,
+                                modifier = Modifier
+                                    .width(165.dp)
+//                .height(210.dp)
+//            .padding(vertical = 2.dp, horizontal = 2.dp)
+                                    .background(
+                                        color = yellow1,
+                                        shape = RoundedCornerShape(17.dp)
+                                    )
+                                    .padding(bottom = 1.dp),
+                                shadowElevation = 8.dp
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(top = 8.dp, bottom = 14.dp, start = 10.dp, end = 10.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+
+                                    Box(
+                                        modifier = Modifier
+                                            .size(130.dp)
+//                        .padding(5.dp)
+                                            .clip(RoundedCornerShape(20.dp)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.pizza_smoked_salmon_74190_5108),
+                                            contentDescription = "",
+                                            contentScale = ContentScale.Crop,
+//                        modifier = Modifier.clip(CircleShape)
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(20.dp))
+
+                                    androidx.compose.material3.Text(
+                                        text = "Pizza Mozzarella Size L",
+                                        fontWeight = FontWeight.Medium,
+                                        color = black,
+                                        fontSize = 16.sp,
+                                        style = TextStyle(
+                                            textAlign = TextAlign.Center
+                                        )
+                                    )
+
+                                    Spacer(modifier = Modifier.height(10.dp))
+
+                                    Row(
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        androidx.compose.material3.Text(
+                                            text = "$12.00",
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = Color.Black,
+                                            modifier = Modifier.align(Alignment.CenterVertically),
+                                            fontSize = 17.sp
+                                        )
+
+                                        androidx.compose.material3.Button(
+                                            modifier = Modifier.size(30.dp),
+                                            colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = yellow1),
+                                            shape = CircleShape,
+                                            contentPadding = PaddingValues(4.dp),
+                                            onClick = {
+//                            onClickToCart.invoke(productItem)
+                                            }
+                                        )
+                                        {
+                                            androidx.compose.material3.Icon(
+                                                modifier = Modifier.fillMaxSize(),
+                                                imageVector = Icons.Default.AddCircle,
+//                            tint = Color.White,
+                                                contentDescription = ""
+                                            )
+                                        }
+                                    }
+                                }
+                                Row() {
+                                    androidx.compose.material3.Surface(
+                                        onClick = {
+                                        },
+                                        shape = CircleShape,
+                                        color = Color.White
+                                    ) {
+                                        androidx.compose.material3.Icon(
+                                            imageVector = Icons.Rounded.Favorite,
+                                            contentDescription = "",
+                                            tint = delete,
+                                            modifier = Modifier
+                                                .size(30.dp)
+                                                .padding(2.dp),
+                                        )
+                                    }
+                                }
+
+                            }
                         }
                     })
             }
         }
 
     )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CardWishlist() {
-    Surface(
-        onClick = { /*TODO*/ },
-        shape = RoundedCornerShape(17.dp),
-        color = Color.White,
-        modifier = Modifier
-            .width(165.dp)
-//                .height(210.dp)
-//            .padding(vertical = 2.dp, horizontal = 2.dp)
-            .background(
-                color = yellow1,
-                shape = RoundedCornerShape(17.dp)
-            )
-            .padding(bottom = 1.dp),
-        shadowElevation = 8.dp
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp, bottom = 14.dp, start = 10.dp, end = 10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Box(
-                modifier = Modifier
-                    .size(130.dp)
-//                        .padding(5.dp)
-                    .clip(RoundedCornerShape(20.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.pizza_smoked_salmon_74190_5108),
-                    contentDescription = "",
-                    contentScale = ContentScale.Crop,
-//                        modifier = Modifier.clip(CircleShape)
-                )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-
-            androidx.compose.material3.Text(
-                text = "Pizza Mozzarella Size L",
-                fontWeight = FontWeight.Medium,
-                color = black,
-                fontSize = 16.sp,
-                style = TextStyle(
-                    textAlign = TextAlign.Center
-                )
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                androidx.compose.material3.Text(
-                    text = "$12.00",
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.Black,
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                    fontSize = 17.sp
-                )
-
-                androidx.compose.material3.Button(
-                    modifier = Modifier.size(30.dp),
-                    colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = yellow1),
-                    shape = CircleShape,
-                    contentPadding = PaddingValues(4.dp),
-                    onClick = {
-//                            onClickToCart.invoke(productItem)
-                    }
-                )
-                {
-                    androidx.compose.material3.Icon(
-                        modifier = Modifier.fillMaxSize(),
-                        imageVector = Icons.Default.AddCircle,
-//                            tint = Color.White,
-                        contentDescription = ""
-                    )
-                }
-            }
-        }
-        Row() {
-            androidx.compose.material3.Surface(
-                onClick = {
-                },
-                shape = CircleShape,
-                color = Color.White
-            ) {
-                androidx.compose.material3.Icon(
-                    imageVector = Icons.Rounded.Favorite,
-                    contentDescription = "",
-                    tint = delete,
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(2.dp),
-                )
-            }
-        }
-
-    }
 }
 
 @Preview
