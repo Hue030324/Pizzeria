@@ -69,6 +69,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pizzeria.R
 import com.example.pizzeria.nav.Screen
 import com.example.pizzeria.ui.theme.Shapes
+import com.example.pizzeria.ui.theme.bg
 import com.example.pizzeria.ui.theme.black
 import com.example.pizzeria.ui.theme.blackcart
 import com.example.pizzeria.ui.theme.delete
@@ -83,439 +84,439 @@ import com.example.pizzeria.ui.theme.red
 @Composable
 fun CheckOutScreen(navController: NavController){
     val scrollState = rememberLazyListState()
-    Scaffold(
-        topBar = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
+    Column(
+        modifier = Modifier.fillMaxSize().background(color = bg),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Color.White)
+        ) {
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(70.dp)
+                    .padding(horizontal = 15.dp, vertical = 15.dp)
                     .background(color = Color.White)
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .padding(horizontal = 15.dp, vertical = 15.dp)
-                        .background(color = Color.White)
-                ) {
-                    CenterAlignedTopAppBar(
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Color.White,
-                            titleContentColor = Color.Black,
-                            navigationIconContentColor = Color.Black,
-                            actionIconContentColor = Color.Black
-                        ),
-                        title = {
-                            Text(
-                                text = "Check Out",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                fontWeight = FontWeight.Bold
+                CenterAlignedTopAppBar(
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = Color.White,
+                        titleContentColor = Color.Black,
+                        navigationIconContentColor = Color.Black,
+                        actionIconContentColor = Color.Black
+                    ),
+                    title = {
+                        Text(
+                            text = "Check Out",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            fontWeight = FontWeight.Bold
+                        )
+                    },
+                    navigationIcon = {
+                        Button(
+                            onClick = { },
+                            contentPadding = PaddingValues(),
+                            shape = Shapes.small,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.White,
+                                contentColor = Color.Black
+                            ),
+                            //                    elevation = 5.dp,
+                            modifier = Modifier
+                                .width(38.dp)
+                                .height(38.dp)
+                        ) {
+                            Icon(
+                                painterResource(id = R.drawable.ic_arrow_back),
+                                null
                             )
-                        },
-                        navigationIcon = {
-                            Button(
-                                onClick = { },
-                                contentPadding = PaddingValues(),
-                                shape = Shapes.small,
-                                colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = Color.White,
-                                    contentColor = Color.Black
-                                ),
-                                //                    elevation = 5.dp,
-                                modifier = Modifier
-                                    .width(38.dp)
-                                    .height(38.dp)
-                            ) {
-                                Icon(
-                                    painterResource(id = R.drawable.ic_arrow_back),
-                                    null
-                                )
-                            }
-                        },
-                    )
-                }
+                        }
+                    },
+                )
             }
-        },
-        bottomBar = {
-            BottomAppBar(
-                contentPadding = PaddingValues(),
-                backgroundColor = Color.White,
-                modifier = Modifier
-                    .height(160.dp)
-            ) {
+        }
+        LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp), state = scrollState){
+            item {
+                Column {
+                    Text(
+                        text = "Items",
+                        fontWeight = FontWeight.Medium,
+                        color = black,
+                        fontSize = 16.sp
+                    )
+                    LazyRow(
+//        horizontalArrangement = Arrangement.spacedBy(5.dp),
+                        contentPadding = PaddingValues(3.dp)
+                    ){
+                        items(5){
+                            Surface(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(17.dp),
+                                color = Color.White,
+                                modifier = Modifier
+                                    .width(165.dp)
+                                    .padding(vertical = 6.dp, horizontal = 6.dp)
+                                    .background(
+                                        color = lightGray,
+                                        shape = RoundedCornerShape(17.dp)
+                                    )
+                                    .padding(bottom = 2.dp),
+                                shadowElevation = 5.dp
+                            ){
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(
+                                            top = 8.dp,
+                                            bottom = 14.dp,
+                                            start = 10.dp,
+                                            end = 10.dp
+                                        ),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+
+                                    Box(
+                                        modifier = Modifier
+                                            .size(130.dp)
+//                        .padding(5.dp)
+                                            .clip(RoundedCornerShape(20.dp)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.pizza_smoked_salmon_74190_5108),
+                                            contentDescription = "",
+                                            contentScale = ContentScale.Crop,
+//                        modifier = Modifier.clip(CircleShape)
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(15.dp))
+
+                                    Text(
+                                        text = "Pizza Mozzarella Size L",
+                                        fontWeight = FontWeight.Medium,
+                                        color = black,
+                                        fontSize = 16.sp,
+                                        style = TextStyle(
+                                            textAlign = TextAlign.Center
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 25.dp, vertical = 5.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .padding(vertical = 15.dp, horizontal = 5.dp)
                 ) {
-                    Row (
-                        verticalAlignment = Alignment.CenterVertically,
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = "Total:",
-                            fontSize = 20.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold
+                        Icon(
+                            painter = painterResource(id = R.drawable.shiplocation),
+                            contentDescription = null,
+                            modifier = Modifier.height(20.dp)
                         )
-                        Spacer(modifier = Modifier.width(20.dp))
+                        Spacer(modifier = Modifier.width(5.dp))
                         Text(
-                            text = "$",
-                            fontSize = 20.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "43.00",
-                            fontSize = 25.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(25.dp))
-                    Button(
-                        onClick = {
-                                  navController.navigate(Screen.Detail.rout)
-                        },
-                        shape = RoundedCornerShape(8.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = red,
-                        ),
-                        modifier = Modifier
-                            .height(50.dp)
-                            .fillMaxWidth(),
-                    ) {
-                        Text(
-                            text = "Pay Now",
-                            fontSize = 19.sp,
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                }
-            }
-        },
-        content = {
-            LazyColumn(contentPadding = PaddingValues(top = 90.dp, bottom = 160.dp, start = 16.dp, end = 16.dp), state = scrollState){
-                item {
-                    Column {
-                        Text(
-                            text = "Items",
+                            text = "Shipping Infomation",
                             fontWeight = FontWeight.Medium,
-                            color = black,
-                            fontSize = 16.sp
+                            fontSize = 15.sp,
+                            color = blackcart
                         )
-                        LazyRow(
-//        horizontalArrangement = Arrangement.spacedBy(5.dp),
-                            contentPadding = PaddingValues(3.dp)
-                        ){
-                            items(5){
-                                Surface(
-                                    onClick = { /*TODO*/ },
-                                    shape = RoundedCornerShape(17.dp),
-                                    color = Color.White,
-                                    modifier = Modifier
-                                        .width(165.dp)
-                                        .padding(vertical = 6.dp, horizontal = 6.dp)
-                                        .background(
-                                            color = lightGray,
-                                            shape = RoundedCornerShape(17.dp)
-                                        )
-                                        .padding(bottom = 2.dp),
-                                    shadowElevation = 5.dp
-                                ){
-                                    Column(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(
-                                                top = 8.dp,
-                                                bottom = 14.dp,
-                                                start = 10.dp,
-                                                end = 10.dp
-                                            ),
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ) {
-
-                                        Box(
-                                            modifier = Modifier
-                                                .size(130.dp)
-//                        .padding(5.dp)
-                                                .clip(RoundedCornerShape(20.dp)),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Image(
-                                                painter = painterResource(id = R.drawable.pizza_smoked_salmon_74190_5108),
-                                                contentDescription = "",
-                                                contentScale = ContentScale.Crop,
-//                        modifier = Modifier.clip(CircleShape)
-                                            )
-                                        }
-                                        Spacer(modifier = Modifier.height(15.dp))
-
-                                        Text(
-                                            text = "Pizza Mozzarella Size L",
-                                            fontWeight = FontWeight.Medium,
-                                            color = black,
-                                            fontSize = 16.sp,
-                                            style = TextStyle(
-                                                textAlign = TextAlign.Center
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        }
                     }
-                    Column(
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color.White,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 15.dp, horizontal = 5.dp)
+                            .background(
+                                color = lightGray,
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                            .padding(bottom = 2.dp),
+                        shadowElevation = 6.dp,
+                        onClick = {
+                            //den trang sua/ them dia chi
+                        }
                     ) {
                         Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.shiplocation),
-                                contentDescription = null,
-                                modifier = Modifier.height(20.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Shipping Infomation",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 15.sp,
-                                color = blackcart
-                            )
-                        }
-
-                        Surface(
-                            shape = RoundedCornerShape(12.dp),
-                            color = Color.White,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
-                                    color = lightGray,
-                                    shape = RoundedCornerShape(12.dp),
-                                )
-                                .padding(bottom = 2.dp),
-                            shadowElevation = 6.dp,
-                            onClick = {
-                                //den trang sua/ them dia chi
-                            }
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(10.dp),
+                            modifier = Modifier.padding(10.dp),
 //                verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .weight(2f)
+                                    .padding(horizontal = 5.dp, vertical = 10.dp),
+                                verticalArrangement = Arrangement.Center
                             ) {
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .weight(2f)
-                                        .padding(horizontal = 5.dp, vertical = 10.dp),
-                                    verticalArrangement = Arrangement.Center
-                                ) {
-                                    //ten nguoi dat hang
-                                    Text(
-                                        text = "Hoang Quynh",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.height(20.dp))
-                                    //so dien thoai
-                                    Text(
-                                        text = "0986351772",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.height(10.dp))
-                                    //so duong
-                                    Text(
-                                        text = "365 Tran Dai Nghia",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-                                    Spacer(modifier = Modifier.height(10.dp))
-                                    // quan/ huyen/ thanh pho
-                                    Text(
-                                        text = "Hoa Hai, Ngu Hanh Son, Da Nang, Viet Nam",
-                                        fontSize = 16.sp,
-                                        color = Color.DarkGray
-                                    )
-
-                                }
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .weight(0.3f)
-                                        .padding(top = 10.dp),
-                                    verticalArrangement = Arrangement.Top,
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.CheckCircle,
-                                        contentDescription = "",
-                                        tint = green,
-                                        modifier = Modifier.size(20.dp)
-                                    )
-                                    Spacer(modifier = Modifier.height(30.dp))
-
-                                    Button(
-                                        onClick = {  },
-                                        contentPadding = PaddingValues(),
-                                        shape = CircleShape,
-                                        colors = ButtonDefaults.buttonColors(backgroundColor = blackcart, contentColor = White),
-                                        modifier = Modifier
-                                            .width(25.dp)
-                                            .height(25.dp)
-                                    ) {
-                                        androidx.compose.material3.Icon(
-                                            imageVector = Icons.Rounded.Edit,
-                                            null,
-                                            modifier = Modifier
-                                                .size(16.dp),
-                                            tint = White
-                                        )
-                                    }
-                                    Spacer(modifier = Modifier.height(10.dp))
-                                    Button(
-                                        onClick = {  },
-                                        contentPadding = PaddingValues(),
-                                        shape = CircleShape,
-                                        colors = ButtonDefaults.buttonColors(backgroundColor = delete, contentColor = White),
-                                        modifier = Modifier
-                                            .width(25.dp)
-                                            .height(25.dp)
-                                    ) {
-                                        androidx.compose.material3.Icon(
-                                            imageVector = Icons.Rounded.Delete,
-                                            null,
-                                            modifier = Modifier
-                                                .size(17.dp),
-                                            tint = White
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 15.dp, horizontal = 5.dp)
-                    ){
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.sticky_notes),
-                                contentDescription = null,
-                                modifier = Modifier.height(20.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Notes",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 15.sp,
-                                color = blackcart
-                            )
-                        }
-                        Surface(
-                            shape = RoundedCornerShape(12.dp),
-                            color = Color.White,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
-                                    color = lightGray,
-                                    shape = RoundedCornerShape(12.dp),
-                                )
-                                .padding(bottom = 2.dp),
-                            shadowElevation = 6.dp
-                        ){
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ){
-                                OutlinedTextField(
-                                    value = "",
-                                    onValueChange = {  },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(100.dp)
-                                        .padding(10.dp),
-                                    shape = RoundedCornerShape(12.dp),
-
-                                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                                        containerColor = White,
-                                        focusedBorderColor = menu,
-                                        unfocusedBorderColor = menu
-                                    )
-                                )
-                            }
-                        }
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 15.dp, horizontal = 5.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.credit_card),
-                                contentDescription = null,
-                                modifier = Modifier.height(20.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Payment Method",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 15.sp,
-                                color = blackcart
-                            )
-                        }
-
-                        Surface(
-                            shape = RoundedCornerShape(12.dp),
-                            color = Color.White,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
-                                    color = lightGray,
-                                    shape = RoundedCornerShape(12.dp),
-                                )
-                                .padding(bottom = 2.dp),
-                            shadowElevation = 6.dp,
-                            onClick = {
-                                //den trang sua/ them dia chi
-                            }
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(15.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
+                                //ten nguoi dat hang
                                 Text(
-                                    text = "Cash on delivery",
+                                    text = "Hoang Quynh",
                                     fontSize = 16.sp,
                                     color = Color.DarkGray
                                 )
+                                Spacer(modifier = Modifier.height(20.dp))
+                                //so dien thoai
+                                Text(
+                                    text = "0986351772",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                //so duong
+                                Text(
+                                    text = "365 Tran Dai Nghia",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                // quan/ huyen/ thanh pho
+                                Text(
+                                    text = "Hoa Hai, Ngu Hanh Son, Da Nang, Viet Nam",
+                                    fontSize = 16.sp,
+                                    color = Color.DarkGray
+                                )
+
+                            }
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .weight(0.3f)
+                                    .padding(top = 10.dp),
+                                verticalArrangement = Arrangement.Top,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
                                 Icon(
                                     imageVector = Icons.Rounded.CheckCircle,
                                     contentDescription = "",
                                     tint = green,
                                     modifier = Modifier.size(20.dp)
                                 )
+                                Spacer(modifier = Modifier.height(30.dp))
+
+                                Button(
+                                    onClick = {  },
+                                    contentPadding = PaddingValues(),
+                                    shape = CircleShape,
+                                    colors = ButtonDefaults.buttonColors(backgroundColor = blackcart, contentColor = White),
+                                    modifier = Modifier
+                                        .width(25.dp)
+                                        .height(25.dp)
+                                ) {
+                                    androidx.compose.material3.Icon(
+                                        imageVector = Icons.Rounded.Edit,
+                                        null,
+                                        modifier = Modifier
+                                            .size(16.dp),
+                                        tint = White
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Button(
+                                    onClick = {  },
+                                    contentPadding = PaddingValues(),
+                                    shape = CircleShape,
+                                    colors = ButtonDefaults.buttonColors(backgroundColor = delete, contentColor = White),
+                                    modifier = Modifier
+                                        .width(25.dp)
+                                        .height(25.dp)
+                                ) {
+                                    androidx.compose.material3.Icon(
+                                        imageVector = Icons.Rounded.Delete,
+                                        null,
+                                        modifier = Modifier
+                                            .size(17.dp),
+                                        tint = White
+                                    )
+                                }
                             }
+                        }
+                    }
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp, horizontal = 5.dp)
+                ){
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.sticky_notes),
+                            contentDescription = null,
+                            modifier = Modifier.height(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "Notes",
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 15.sp,
+                            color = blackcart
+                        )
+                    }
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                color = lightGray,
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                            .padding(bottom = 2.dp),
+                        shadowElevation = 6.dp
+                    ){
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            OutlinedTextField(
+                                value = "",
+                                onValueChange = {  },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(100.dp)
+                                    .padding(10.dp),
+                                shape = RoundedCornerShape(12.dp),
+
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                                colors = TextFieldDefaults.outlinedTextFieldColors(
+                                    containerColor = lightGray,
+                                    focusedBorderColor = menu,
+                                    unfocusedBorderColor = menu
+                                )
+                            )
+                        }
+                    }
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 15.dp, horizontal = 5.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.credit_card),
+                            contentDescription = null,
+                            modifier = Modifier.height(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "Payment Method",
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 15.sp,
+                            color = blackcart
+                        )
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                color = lightGray,
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                            .padding(bottom = 2.dp),
+                        shadowElevation = 6.dp,
+                        onClick = {
+
+                        }
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(15.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Cash on delivery",
+                                fontSize = 16.sp,
+                                color = Color.DarkGray
+                            )
+                            Icon(
+                                imageVector = Icons.Rounded.CheckCircle,
+                                contentDescription = "",
+                                tint = green,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
+                }
+                BottomAppBar(
+                    contentPadding = PaddingValues(),
+                    backgroundColor = Color.White,
+                    modifier = Modifier
+                        .height(160.dp)
+                        .padding(top = 20.dp)
+                        .clip(shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 25.dp, vertical = 5.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Row (
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(
+                                text = "Total:",
+                                fontSize = 20.sp,
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.width(20.dp))
+                            Text(
+                                text = "$",
+                                fontSize = 20.sp,
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "43.00",
+                                fontSize = 25.sp,
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(25.dp))
+                        Button(
+                            onClick = {
+                                navController.navigate(Screen.Detail.rout)
+                            },
+                            shape = RoundedCornerShape(8.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = red,
+                            ),
+                            modifier = Modifier
+                                .height(50.dp)
+                                .fillMaxWidth(),
+                        ) {
+                            Text(
+                                text = "Pay Now",
+                                fontSize = 19.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     }
                 }
             }
         }
-    )
+
+    }
 }
 
 @Preview()
