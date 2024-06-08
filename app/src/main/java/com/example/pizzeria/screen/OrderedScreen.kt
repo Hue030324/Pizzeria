@@ -61,6 +61,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pizzeria.R
 import com.example.pizzeria.nav.Screen
 import com.example.pizzeria.ui.theme.Shapes
+import com.example.pizzeria.ui.theme.bg
 import com.example.pizzeria.ui.theme.blackcart
 import com.example.pizzeria.ui.theme.grayFont
 import com.example.pizzeria.ui.theme.green
@@ -93,57 +94,46 @@ fun OrderedScreen(navController: NavHostController){
             }
         },
         topBar = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.White)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .padding(horizontal = 15.dp, vertical = 15.dp)
-                        .background(color = Color.White)
-                ) {
-                    CenterAlignedTopAppBar(
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Color.White,
-                            titleContentColor = Color.Black,
-                            navigationIconContentColor = Color.Black,
-                            actionIconContentColor = Color.Black
-                        ),
-                        title = {
-                            Text(
-                                text = "My Order",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                fontWeight = FontWeight.Bold
-                            )
-                        },
-                        navigationIcon = {
-                            Button(
-                                onClick = { },
-                                contentPadding = PaddingValues(),
-                                shape = Shapes.small,
-                                colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = Color.White,
-                                    contentColor = Color.Black
-                                ),
-                                //                    elevation = 5.dp,
-                                modifier = Modifier
-                                    .width(38.dp)
-                                    .height(38.dp)
-                            ) {
-                                Icon(
-                                    painterResource(id = R.drawable.ic_arrow_back),
-                                    null
-                                )
-                            }
-                        },
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.White,
+                    titleContentColor = Color.Black,
+                    navigationIconContentColor = Color.Black,
+                    actionIconContentColor = Color.Black
+                ),
+                title = {
+                    Text(
+                        text = "My Order",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-            }
+                },
+                navigationIcon = {
+                    Column(
+                        modifier = Modifier.padding(start = 15.dp)
+                    ) {
+                        Button(
+                            onClick = { },
+                            contentPadding = PaddingValues(),
+                            shape = Shapes.small,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.White,
+                                contentColor = Color.Black
+                            ),
+                            //                    elevation = 5.dp,
+                            modifier = Modifier
+                                .width(38.dp)
+                                .height(38.dp)
+                        ) {
+                            Icon(
+                                painterResource(id = R.drawable.ic_arrow_back),
+                                null
+                            )
+                        }
+                    }
+                },
+            )
         },
         bottomBar = {
             val selectedItem = remember { mutableStateOf("Ordered") }
@@ -222,101 +212,103 @@ fun OrderedScreen(navController: NavHostController){
             )
         },
 
-        content = {
-            LazyColumn(contentPadding = PaddingValues(bottom = 75.dp, start = 16.dp, end = 16.dp), state = scrollState){
-                item {
-                    Column(
+    ){
+        LazyColumn(
+            contentPadding = PaddingValues(bottom = 75.dp, start = 16.dp, end = 16.dp),
+            state = scrollState
+        ){
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp, horizontal = 5.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.DateRange,
+                            contentDescription = null,
+                            modifier = Modifier.height(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "Friday, Jun 7, 2024",
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 15.sp,
+                            color = blackcart
+                        )
+                    }
+
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 10.dp, horizontal = 5.dp)
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
+                        androidx.compose.material.Surface(
+                            onClick = {
+                                navController.navigate(Screen.OrderDetail.rout)
+                            },
+                            shape = Shapes.small,
+                            color = Color.White,
+                            border = BorderStroke(1.dp, menu),
+                            elevation = 1.dp
                         ) {
-                            Icon(
-                                imageVector = Icons.Rounded.DateRange,
-                                contentDescription = null,
-                                modifier = Modifier.height(20.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Friday, Jun 7, 2024",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 15.sp,
-                                color = blackcart
-                            )
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            androidx.compose.material.Surface(
-                                onClick = {
-                                    navController.navigate(Screen.OrderDetail.rout)
-                                },
-                                shape = Shapes.small,
-                                color = Color.White,
-                                border = BorderStroke(1.dp, menu),
-                                elevation = 1.dp
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
                             ) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
+                                Column(
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(8.dp)
+                                        .padding(6.dp)
+                                        .weight(1f)
                                 ) {
-                                    Column(
+                                    androidx.compose.material.Text(
+                                        text = "x 4",
+                                        color = Color.DarkGray,
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.SemiBold,
                                         modifier = Modifier
-                                            .padding(6.dp)
-                                            .weight(1f)
-                                    ) {
-                                        androidx.compose.material.Text(
-                                            text = "x 4",
-                                            color = Color.DarkGray,
-                                            fontSize = 18.sp,
-                                            fontWeight = FontWeight.SemiBold,
-                                            modifier = Modifier
-                                                .padding(bottom = 6.dp)
-                                        )
-                                        androidx.compose.material.Text(
-                                            text = "$43.00",
-                                            color = Color.DarkGray,
-                                            fontSize = 18.sp,
-                                            fontWeight = FontWeight.SemiBold,
-                                            modifier = Modifier
-                                                .padding(bottom = 6.dp)
-                                        )
-                                        androidx.compose.material.Text(
-                                            text = "Shipping",
-                                            color = green,
-                                            fontSize = 18.sp,
-                                            fontWeight = FontWeight.SemiBold
-                                        )
-                                    }
-                                    Column(
+                                            .padding(bottom = 6.dp)
+                                    )
+                                    androidx.compose.material.Text(
+                                        text = "$43.00",
+                                        color = Color.DarkGray,
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.SemiBold,
                                         modifier = Modifier
-                                            .fillMaxHeight(),
-                                        verticalArrangement = Arrangement.Center
-                                    ) {
-                                        androidx.compose.material.Text(
-                                            text = "10:30 am",
-                                            color = grayFont,
-                                            fontSize = 18.sp,
-                                        )
-                                    }
-                                    Column(
+                                            .padding(bottom = 6.dp)
+                                    )
+                                    androidx.compose.material.Text(
+                                        text = "Shipping",
+                                        color = green,
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                }
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxHeight(),
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    androidx.compose.material.Text(
+                                        text = "10:30 am",
+                                        color = grayFont,
+                                        fontSize = 18.sp,
+                                    )
+                                }
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxHeight(),
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Icon(imageVector = Icons.Rounded.KeyboardArrowRight,
+                                        contentDescription = "",
+                                        tint = grayFont,
                                         modifier = Modifier
-                                            .fillMaxHeight(),
-                                        verticalArrangement = Arrangement.Center
-                                    ) {
-                                        Icon(imageVector = Icons.Rounded.KeyboardArrowRight,
-                                            contentDescription = "",
-                                            tint = grayFont,
-                                            modifier = Modifier
-                                                .padding(end = 5.dp)
-                                                .clickable { })
-                                    }
+                                            .padding(end = 5.dp)
+                                            .clickable { })
                                 }
                             }
                         }
@@ -325,7 +317,7 @@ fun OrderedScreen(navController: NavHostController){
             }
         }
 
-    )
+    }
 }
 
 @Preview
