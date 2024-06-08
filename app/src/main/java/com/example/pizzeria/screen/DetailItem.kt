@@ -85,6 +85,7 @@ fun DetailItem(){
                     shape = CircleShape,
                     backgroundColor = redlight,
                     contentColor = White,
+                    modifier = Modifier.padding(bottom = 50.dp)
                 ) {
 
                     Icon(
