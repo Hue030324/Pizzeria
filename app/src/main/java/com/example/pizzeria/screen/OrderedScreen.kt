@@ -1,11 +1,15 @@
 package com.example.pizzeria.screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,6 +23,7 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
@@ -28,7 +33,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -55,11 +62,14 @@ import com.example.pizzeria.R
 import com.example.pizzeria.nav.Screen
 import com.example.pizzeria.ui.theme.Shapes
 import com.example.pizzeria.ui.theme.blackcart
+import com.example.pizzeria.ui.theme.grayFont
+import com.example.pizzeria.ui.theme.green
 import com.example.pizzeria.ui.theme.lightGray
+import com.example.pizzeria.ui.theme.menu
 import com.example.pizzeria.ui.theme.yellow1
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun OrderedScreen(navController: NavHostController){
     val scrollState = rememberLazyListState()
@@ -215,168 +225,107 @@ fun OrderedScreen(navController: NavHostController){
         content = {
             LazyColumn(contentPadding = PaddingValues(bottom = 75.dp, start = 16.dp, end = 16.dp), state = scrollState){
                 item {
-                    OrderDetail()
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp, horizontal = 5.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.DateRange,
+                                contentDescription = null,
+                                modifier = Modifier.height(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Text(
+                                text = "Friday, Jun 7, 2024",
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 15.sp,
+                                color = blackcart
+                            )
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            androidx.compose.material.Surface(
+                                onClick = {
+                                    navController.navigate(Screen.OrderDetail.rout)
+                                },
+                                shape = Shapes.small,
+                                color = Color.White,
+                                border = BorderStroke(1.dp, menu),
+                                elevation = 1.dp
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(8.dp)
+                                ) {
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(6.dp)
+                                            .weight(1f)
+                                    ) {
+                                        androidx.compose.material.Text(
+                                            text = "x 4",
+                                            color = Color.DarkGray,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            modifier = Modifier
+                                                .padding(bottom = 6.dp)
+                                        )
+                                        androidx.compose.material.Text(
+                                            text = "$43.00",
+                                            color = Color.DarkGray,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            modifier = Modifier
+                                                .padding(bottom = 6.dp)
+                                        )
+                                        androidx.compose.material.Text(
+                                            text = "Shipping",
+                                            color = green,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.SemiBold
+                                        )
+                                    }
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxHeight(),
+                                        verticalArrangement = Arrangement.Center
+                                    ) {
+                                        androidx.compose.material.Text(
+                                            text = "10:30 am",
+                                            color = grayFont,
+                                            fontSize = 18.sp,
+                                        )
+                                    }
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxHeight(),
+                                        verticalArrangement = Arrangement.Center
+                                    ) {
+                                        Icon(imageVector = Icons.Rounded.KeyboardArrowRight,
+                                            contentDescription = "",
+                                            tint = grayFont,
+                                            modifier = Modifier
+                                                .padding(end = 5.dp)
+                                                .clickable { })
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
 
     )
-}
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun OrderDetail(){
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp, horizontal = 5.dp)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.DateRange,
-                contentDescription = null,
-                modifier = Modifier.height(20.dp)
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = "Friday, Jun 7, 2024",
-                fontWeight = FontWeight.Medium,
-                fontSize = 15.sp,
-                color = blackcart
-            )
-        }
-
-        Surface(
-            shape = RoundedCornerShape(12.dp),
-            color = Color.White,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = lightGray,
-                    shape = RoundedCornerShape(12.dp),
-                )
-                .padding(bottom = 2.dp),
-            shadowElevation = 6.dp,
-            onClick = {
-                //den trang sua/ them dia chi
-            }
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(15.dp)
-                    .padding(top = 15.dp),
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 15.dp)
-                ) {
-                    Text(
-                        text = "Name contact :",
-                        fontSize = 16.sp,
-                        color = Color.DarkGray
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Hoang Quynh",
-                        fontSize = 17.sp,
-                        color = blackcart,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 15.dp)
-                ) {
-                    Text(
-                        text = "Phone number :",
-                        fontSize = 16.sp,
-                        color = Color.DarkGray
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "0986753241",
-                        fontSize = 17.sp,
-                        color = blackcart,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 15.dp)
-                ) {
-                    Text(
-                        text = "Address :",
-                        fontSize = 16.sp,
-                        color = Color.DarkGray
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "365 Tran Dai Nghia, Hoa Hai, Ngu Hanh Son, Da Nang",
-                        fontSize = 17.sp,
-                        color = blackcart,
-                        fontWeight = FontWeight.Medium,
-                        lineHeight = 20.sp
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 15.dp)
-                ) {
-                    Text(
-                        text = "Items :",
-                        fontSize = 16.sp,
-                        color = Color.DarkGray
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Smoked Salmon Pizza x1 \n" +
-                                "Special Royal Beef Burger x1 \n" +
-                                "Classic Fries x1 \n" +
-                                "Sprite x1",
-                        fontSize = 17.sp,
-                        color = blackcart,
-                        fontWeight = FontWeight.Medium,
-                        lineHeight = 25.sp
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 15.dp)
-                ) {
-                    Text(
-                        text = "Time :",
-                        fontSize = 16.sp,
-                        color = Color.DarkGray
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "11:49 PM",
-                        fontSize = 17.sp,
-                        color = blackcart,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 15.dp)
-                ) {
-                    Text(
-                        text = "Total :",
-                        fontSize = 16.sp,
-                        color = Color.DarkGray
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "$43.00",
-                        fontSize = 17.sp,
-                        color = blackcart,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-            }
-        }
-    }
 }
 
 @Preview
