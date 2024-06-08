@@ -79,7 +79,7 @@ import com.example.pizzeria.ui.theme.yellow2
 @Composable
 fun CartScreen(navController: NavHostController){
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(color = bg),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
