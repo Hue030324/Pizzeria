@@ -97,69 +97,58 @@ fun WishlistScreen(navController: NavHostController){
             }
         },
         topBar = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.White)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .padding(horizontal = 15.dp, vertical = 15.dp)
-                        .background(color = Color.White)
-                ) {
-                    CenterAlignedTopAppBar(
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Color.White,
-                            titleContentColor = Color.Black,
-                            navigationIconContentColor = Color.Black,
-                            actionIconContentColor = Color.Black
-                        ),
-                        title = {
-                            androidx.compose.material3.Text(
-                                text = "My Wishlist",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                fontWeight = FontWeight.Bold
-                            )
-                        },
-                        navigationIcon = {
-                            Button(
-                                onClick = { },
-                                contentPadding = PaddingValues(),
-                                shape = Shapes.small,
-                                colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = Color.White,
-                                    contentColor = Color.Black
-                                ),
-                                //                    elevation = 5.dp,
-                                modifier = Modifier
-                                    .width(38.dp)
-                                    .height(38.dp)
-                            ) {
-                                Icon(
-                                    painterResource(id = R.drawable.ic_arrow_back),
-                                    null
-                                )
-                            }
-                        },
-                        actions = {
-                            Row(
-                                modifier = Modifier,
-                            ){
-                                Icon(
-                                    imageVector = Icons.Rounded.Favorite,
-                                    contentDescription = "",
-                                    tint = delete
-                                    )
-                                Text(text = "4", color = red, fontWeight = FontWeight.SemiBold)
-                            }
-                        }
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.White,
+                    titleContentColor = Color.Black,
+                    navigationIconContentColor = Color.Black,
+                    actionIconContentColor = Color.Black
+                ),
+                title = {
+                    androidx.compose.material3.Text(
+                        text = "My Favorites",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontWeight = FontWeight.Bold
                     )
+                },
+                navigationIcon = {
+                    Column(
+                        modifier = Modifier.padding(start = 15.dp)
+                    ) {
+                        Button(
+                            onClick = { },
+                            contentPadding = PaddingValues(),
+                            shape = Shapes.small,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.White,
+                                contentColor = Color.Black
+                            ),
+                            //                    elevation = 5.dp,
+                            modifier = Modifier
+                                .width(38.dp)
+                                .height(38.dp)
+                        ) {
+                            Icon(
+                                painterResource(id = R.drawable.ic_arrow_back),
+                                null
+                            )
+                        }
+                    }
+                },
+                actions = {
+                    Row(
+                        modifier = Modifier.padding(end = 15.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Favorite,
+                            contentDescription = "",
+                            tint = delete
+                        )
+                        Text(text = "4", color = red, fontWeight = FontWeight.SemiBold)
+                    }
                 }
-            }
+            )
         },
         bottomBar = {
             val selectedItem = remember { mutableStateOf("Wishlist") }
@@ -259,8 +248,6 @@ fun WishlistScreen(navController: NavHostController){
                                 color = Color.White,
                                 modifier = Modifier
                                     .width(165.dp)
-//                .height(210.dp)
-//            .padding(vertical = 2.dp, horizontal = 2.dp)
                                     .background(
                                         color = yellow1,
                                         shape = RoundedCornerShape(17.dp)
@@ -286,7 +273,6 @@ fun WishlistScreen(navController: NavHostController){
                                             painter = painterResource(id = R.drawable.pizza_smoked_salmon_74190_5108),
                                             contentDescription = "",
                                             contentScale = ContentScale.Crop,
-//                        modifier = Modifier.clip(CircleShape)
                                         )
                                     }
                                     Spacer(modifier = Modifier.height(20.dp))
@@ -321,14 +307,12 @@ fun WishlistScreen(navController: NavHostController){
                                             shape = CircleShape,
                                             contentPadding = PaddingValues(4.dp),
                                             onClick = {
-//                            onClickToCart.invoke(productItem)
                                             }
                                         )
                                         {
                                             androidx.compose.material3.Icon(
                                                 modifier = Modifier.fillMaxSize(),
                                                 imageVector = Icons.Default.AddCircle,
-//                            tint = Color.White,
                                                 contentDescription = ""
                                             )
                                         }
